@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid meet">
-  <rect width="800" height="800" fill="#e9ecef"/>
-  <circle cx="400" cy="300" r="100" fill="#6c757d"/>
-  <path d="M 200 550 Q 400 450 600 550 L 600 800 L 200 800 Z" fill="#6c757d"/>
-  <text x="400" y="650" font-family="Arial, sans-serif" font-size="32" fill="#495057" text-anchor="middle">Ахмедова Ф.М.</text>
-  <text x="400" y="690" font-family="Arial, sans-serif" font-size="20" fill="#6c757d" text-anchor="middle">Социолог</text>
-</svg>
-
