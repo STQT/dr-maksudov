@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Страница не найдена - 404{% endblock %}
+
+{% block content %}
+<section class="error-page py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 text-center">
+                <div class="error-content py-5">
+                    <h1 class="display-1 fw-bold text-primary mb-4">404</h1>
+                    <h2 class="mb-4">Страница не найдена</h2>
+                    <p class="lead text-muted mb-4">
+                        К сожалению, запрашиваемая вами страница не существует или была перемещена.
+                    </p>
+                    <div class="d-flex gap-3 justify-content-center flex-wrap">
+                        <a href="{% url 'index' %}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-home"></i> На главную
+                        </a>
+                        <a href="{% url 'contact' %}" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-envelope"></i> Связаться
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

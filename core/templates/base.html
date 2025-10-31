@@ -1,0 +1,297 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <title>{% block title %}Максудов Абдурахман - Врач-уролог{% endblock %}</title>
+    
+    <meta name="description" content="{% block meta_description %}Д-р Максудов Абдурахман - врач-уролог высшей категории. Профессиональное лечение урологических заболеваний, консультации, диагностика.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}уролог, врач-уролог, урология, лечение, Максудов Абдурахман, консультация уролога, урологические заболевания{% endblock %}">
+    <meta name="author" content="Максудов Абдурахман">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="{% block og_title %}Максудов Абдурахман - Врач-уролог{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Врач-уролог высшей категории. Профессиональное лечение урологических заболеваний.{% endblock %}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon-16x16.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=104638490', 'ym');
+    
+        ym(104638490, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/104638490" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NCC2849WNK"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-NCC2849WNK');
+    </script>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{% url 'index' %}">
+                <i class="fas fa-user-doctor text-primary"></i>
+                Максудов А.А.
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}" href="{% url 'index' %}">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}" href="{% url 'about' %}">О враче</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'services' %}active{% endif %}" href="{% url 'services' %}">Услуги</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'portfolio' %}active{% endif %}" href="{% url 'portfolio' %}">Клинические случаи</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'blog' %}active{% endif %}" href="{% url 'blog' %}">Блог</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}" href="{% url 'contact' %}">Контакты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary btn-sm ms-2" href="tel:+998889992228">
+                            <i class="fas fa-phone"></i> Позвонить
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Messages -->
+    {% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5 class="mb-3 text-primary">
+                        <i class="fas fa-user-doctor me-2"></i>Максудов Абдурахман
+                    </h5>
+                    <p class="text-light mb-3">
+                        Врач-уролог высшей категории с многолетним опытом работы. Профессиональное лечение урологических заболеваний.
+                    </p>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge bg-primary">Урология</span>
+                        <span class="badge bg-secondary">Андрология</span>
+                        <span class="badge bg-success">Детская урология</span>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6 class="mb-3 text-primary">
+                        <i class="fas fa-sitemap me-2"></i>Разделы сайта
+                    </h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="{% url 'about' %}" class="text-light text-decoration-none">
+                            <i class="fas fa-chevron-right me-1"></i>О враче</a></li>
+                        <li class="mb-2"><a href="{% url 'services' %}" class="text-light text-decoration-none">
+                            <i class="fas fa-chevron-right me-1"></i>Услуги</a></li>
+                        <li class="mb-2"><a href="{% url 'portfolio' %}" class="text-light text-decoration-none">
+                            <i class="fas fa-chevron-right me-1"></i>Клинические случаи</a></li>
+                        <li class="mb-2"><a href="{% url 'blog' %}" class="text-light text-decoration-none">
+                            <i class="fas fa-chevron-right me-1"></i>Блог</a></li>
+                        <li class="mb-2"><a href="{% url 'contact' %}" class="text-light text-decoration-none">
+                            <i class="fas fa-chevron-right me-1"></i>Контакты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h6 class="mb-3 text-primary">
+                        <i class="fas fa-stethoscope me-2"></i>Основные направления
+                    </h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            <span class="text-light">Лечение простатита</span>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            <span class="text-light">Эректильная дисфункция</span>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            <span class="text-light">Мочекаменная болезнь</span>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            <span class="text-light">Недержание мочи</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h6 class="mb-3 text-primary">
+                        <i class="fas fa-phone me-2"></i>Связаться
+                    </h6>
+                    {% if profile %}
+                    <div class="mb-3">
+                        {% if profile.clinic_name %}
+                        <p class="text-light mb-2">
+                            <i class="fas fa-hospital text-primary me-2"></i>{{ profile.clinic_name }}
+                        </p>
+                        {% endif %}
+                        <p class="text-light mb-2">
+                            <i class="fas fa-envelope text-primary me-2"></i>
+                            <a href="mailto:{{ profile.email }}" class="text-light text-decoration-none">{{ profile.email }}</a>
+                        </p>
+                        <p class="text-light mb-3">
+                            <i class="fas fa-phone text-primary me-2"></i>
+                            <a href="tel:{{ profile.phone }}" class="text-light text-decoration-none">{{ profile.phone }}</a>
+                        </p>
+                        {% if profile.working_hours %}
+                        <p class="text-light mb-3">
+                            <i class="fas fa-clock text-primary me-2"></i>{{ profile.working_hours }}
+                        </p>
+                        {% endif %}
+                    </div>
+                    {% else %}
+                    <div class="mb-3">
+                        <p class="text-light mb-2">
+                            <i class="fas fa-envelope text-primary me-2"></i>
+                            <span class="text-muted">Email будет добавлен</span>
+                        </p>
+                        <p class="text-light mb-3">
+                            <i class="fas fa-phone text-primary me-2"></i>
+                            <span class="text-muted">Телефон будет добавлен</span>
+                        </p>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="social-links">
+                        <h6 class="text-primary mb-2">
+                            <i class="fas fa-share-alt me-2"></i>Социальные сети
+                        </h6>
+                        {% if profile %}
+                            {% if profile.telegram %}
+                            <a href="{{ profile.telegram }}" class="text-white me-2" target="_blank" title="Telegram">
+                                <i class="fab fa-telegram fa-lg"></i>
+                            </a>
+                            {% endif %}
+                            {% if profile.facebook %}
+                            <a href="{{ profile.facebook }}" class="text-white me-2" target="_blank" title="Facebook">
+                                <i class="fab fa-facebook fa-lg"></i>
+                            </a>
+                            {% endif %}
+                            {% if profile.instagram %}
+                            <a href="{{ profile.instagram }}" class="text-white me-2" target="_blank" title="Instagram">
+                                <i class="fab fa-instagram fa-lg"></i>
+                            </a>
+                            {% endif %}
+                            {% if profile.linkedin %}
+                            <a href="{{ profile.linkedin }}" class="text-white me-2" target="_blank" title="LinkedIn">
+                                <i class="fab fa-linkedin fa-lg"></i>
+                            </a>
+                            {% endif %}
+                        {% else %}
+                        <span class="text-muted small">Социальные сети будут добавлены</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="bg-secondary my-4">
+            
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <p class="mb-0 text-muted">
+                        <i class="fas fa-copyright me-1"></i>
+                        {% now "Y" %} Максудов Абдурахман. Все права защищены.
+                        <span class="ms-3">
+                            <i class="fas fa-user-md me-1"></i>Врач-уролог высшей категории
+                        </span>
+                    </p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <p class="mb-0 text-muted small">
+                        <i class="fas fa-code me-1"></i>Сайт разработан на Django
+                        <span class="ms-2">
+                            <i class="fas fa-heart text-danger me-1"></i>Здоровье на первом месте
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="btn btn-primary" style="display: none; position: fixed; bottom: 90px; right: 20px; z-index: 1000;">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Telegram Contact Button -->
+    {% if profile and profile.telegram %}
+    <a href="{{ profile.telegram }}" target="_blank" class="telegram-float" title="Есть вопросы? Тогда пиши нам!">
+        <div class="telegram-float-icon">
+            <i class="fab fa-telegram"></i>
+        </div>
+        <div class="telegram-float-text">Есть вопросы?<br>Тогда пиши нам!</div>
+    </a>
+    {% endif %}
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="{% static 'js/scripts.js' %}"></script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
+

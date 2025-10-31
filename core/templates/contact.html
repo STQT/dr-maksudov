@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Контакты - Максудов Абдурахман{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4 fw-bold">Контакты</h1>
+                <p class="lead text-muted">Свяжитесь со мной для консультации или сотрудничества</p>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
+                        <li class="breadcrumb-item active">Контакты</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section py-5">
+    <div class="container">
+        <div class="row g-5">
+            <!-- Contact Info -->
+            <div class="col-lg-4">
+                <div class="contact-info">
+                    <h3 class="fw-bold mb-4">Контактная информация</h3>
+                    
+                    {% if profile %}
+                    <div class="info-item mb-4">
+                        <div class="d-flex align-items-start">
+                            <div class="icon-box bg-primary text-white rounded p-3 me-3">
+                                <i class="fas fa-user fa-2x"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold">Имя</h5>
+                                <p class="text-muted">{{ profile.full_name }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item mb-4">
+                        <div class="d-flex align-items-start">
+                            <div class="icon-box bg-primary text-white rounded p-3 me-3">
+                                <i class="fas fa-envelope fa-2x"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold">Email</h5>
+                                <p class="text-muted">
+                                    <a href="mailto:{{ profile.email }}" class="text-decoration-none">{{ profile.email }}</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item mb-4">
+                        <div class="d-flex align-items-start">
+                            <div class="icon-box bg-primary text-white rounded p-3 me-3">
+                                <i class="fas fa-phone fa-2x"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold">Телефон</h5>
+                                <p class="text-muted">
+                                    <a href="tel:{{ profile.phone }}" class="text-decoration-none">{{ profile.phone }}</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% if profile.address %}
+                    <div class="info-item mb-4">
+                        <div class="d-flex align-items-start">
+                            <div class="icon-box bg-primary text-white rounded p-3 me-3">
+                                <i class="fas fa-map-marker-alt fa-2x"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold">Адрес</h5>
+                                <p class="text-muted">{{ profile.address }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="social-links mt-4">
+                        <h5 class="fw-bold mb-3">Социальные сети</h5>
+                        <div class="d-flex gap-2">
+                            {% if profile.linkedin %}
+                            <a href="{{ profile.linkedin }}" class="btn btn-outline-primary" target="_blank">
+                                <i class="fab fa-linkedin fa-2x"></i>
+                            </a>
+                            {% endif %}
+                            {% if profile.facebook %}
+                            <a href="{{ profile.facebook }}" class="btn btn-outline-primary" target="_blank">
+                                <i class="fab fa-facebook fa-2x"></i>
+                            </a>
+                            {% endif %}
+                            {% if profile.researchgate %}
+                            <a href="{{ profile.researchgate }}" class="btn btn-outline-primary" target="_blank">
+                                <i class="fab fa-researchgate fa-2x"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Contact Call -->
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-body p-5 text-center">
+                        <i class="fas fa-phone-alt fa-4x text-primary mb-4"></i>
+                        <h3 class="fw-bold mb-3">Позвоните мне</h3>
+                        <p class="lead mb-4">Свяжитесь со мной для получения консультации</p>
+                        <a href="tel:+998889992228" class="btn btn-primary btn-lg px-5 py-3" style="font-size: 1.5rem;">
+                            <i class="fas fa-phone"></i> +998 88 999 22 28
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-3">Нужна консультация уролога?</h2>
+        <p class="lead mb-4">Запишитесь на прием для профессиональной диагностики</p>
+        <a href="tel:+998889992228" class="btn btn-light btn-lg px-5" style="font-size: 1.2rem;">
+            <i class="fas fa-phone"></i> +998 88 999 22 28
+        </a>
+    </div>
+</section>
+{% endblock %}
+

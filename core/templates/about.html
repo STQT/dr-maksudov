@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}О социологе - Ахмедова Феруза Медетовна{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4 fw-bold">О социологе</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
+                        <li class="breadcrumb-item active">О социологе</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if profile %}
+<!-- Profile Section -->
+<section class="profile-section py-5">
+    <div class="container">
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                {% if profile.photo %}
+                <img src="{{ profile.photo.url }}" alt="{{ profile.full_name }}" class="profile-image">
+                {% else %}
+                <img src="{% static 'images/profile-placeholder.svg' %}" alt="Profile" class="profile-image">
+                {% endif %}
+            </div>
+            <div class="col-lg-8">
+                <h2 class="fw-bold mb-3">{{ profile.full_name }}</h2>
+                <div class="mb-3">
+                    {% if profile.academic_degree %}
+                    <span class="badge bg-primary me-2"><i class="fas fa-graduation-cap"></i> {{ profile.academic_degree }}</span>
+                    {% endif %}
+                    {% if profile.academic_title %}
+                    <span class="badge bg-secondary me-2">{{ profile.academic_title }}</span>
+                    {% endif %}
+                    <span class="badge bg-success"><i class="fas fa-briefcase"></i> {{ profile.experience_years }}+ лет опыта</span>
+                </div>
+                <div class="contact-info mb-3">
+                    <p><i class="fas fa-envelope text-primary me-2"></i> {{ profile.email }}</p>
+                    <p><i class="fas fa-phone text-primary me-2"></i> {{ profile.phone }}</p>
+                    {% if profile.address %}
+                    <p><i class="fas fa-map-marker-alt text-primary me-2"></i> {{ profile.address }}</p>
+                    {% endif %}
+                    {% if profile.languages %}
+                    <p><i class="fas fa-language text-primary me-2"></i> {{ profile.languages }}</p>
+                    {% endif %}
+                </div>
+                <div class="social-links">
+                    {% if profile.linkedin %}
+                    <a href="{{ profile.linkedin }}" class="btn btn-outline-primary me-2" target="_blank">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </a>
+                    {% endif %}
+                    {% if profile.researchgate %}
+                    <a href="{{ profile.researchgate }}" class="btn btn-outline-primary me-2" target="_blank">
+                        <i class="fab fa-researchgate"></i> ResearchGate
+                    </a>
+                    {% endif %}
+                    {% if profile.orcid %}
+                    <a href="https://orcid.org/{{ profile.orcid }}" class="btn btn-outline-primary me-2" target="_blank">
+                        <i class="fab fa-orcid"></i> ORCID
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Biography -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="fw-bold mb-4">Биография</h3>
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <p class="lead">{{ profile.bio|linebreaks }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Education & Specialization -->
+        <div class="row mb-5">
+            <div class="col-md-6 mb-4">
+                <h3 class="fw-bold mb-4">Образование</h3>
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <p>{{ profile.education|linebreaks }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <h3 class="fw-bold mb-4">Специализация</h3>
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <p>{{ profile.specialization|linebreaks }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Achievements Section -->
+{% if achievements %}
+<section class="achievements-section py-5 bg-light">
+    <div class="container">
+        <h3 class="fw-bold mb-5 text-center">Достижения и награды</h3>
+        <div class="timeline">
+            {% for achievement in achievements %}
+            <div class="timeline-item mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-2">
+                                <h4 class="text-primary mb-0">{{ achievement.date.year }}</h4>
+                            </div>
+                            <div class="col-md-7">
+                                <h5 class="card-title mb-2">{{ achievement.title }}</h5>
+                                <p class="text-muted mb-2">{{ achievement.organization }}</p>
+                                <p class="card-text">{{ achievement.description }}</p>
+                            </div>
+                            {% if achievement.certificate_image %}
+                            <div class="col-md-3">
+                                <img src="{{ achievement.certificate_image.url }}" alt="{{ achievement.title }}" class="img-fluid rounded">
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- CTA Section -->
+<section class="cta-section py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-3">Заинтересованы в сотрудничестве?</h2>
+        <p class="lead mb-4">Свяжитесь со мной для обсуждения вашего проекта</p>
+        <a href="{% url 'contact' %}" class="btn btn-light btn-lg">
+            <i class="fas fa-envelope"></i> Связаться
+        </a>
+    </div>
+</section>
+
+{% endif %}
+{% endblock %}
+

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Упрощенная магистерская шапка для маленьких размеров -->
+  <rect width="32" height="32" fill="#1e3a8a" rx="4"/>
+  
+  <!-- Квадратная доска -->
+  <rect x="6" y="12" width="20" height="3" fill="#fbbf24"/>
+  
+  <!-- Верхняя часть -->
+  <path d="M 8 12 Q 16 8 24 12 Z" fill="#fbbf24"/>
+  
+  <!-- Основание шапки -->
+  <ellipse cx="16" cy="15" rx="8" ry="2.5" fill="#1e40af"/>
+  
+  <!-- Кисточка -->
+  <line x1="16" y1="12" x2="20" y2="7" stroke="#fbbf24" stroke-width="1.5"/>
+  <circle cx="20" cy="7" r="1.5" fill="#fbbf24"/>
+  
+  <!-- Инициалы -->
+  <text x="16" y="26" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#fbbf24" text-anchor="middle">АФ</text>
+</svg>

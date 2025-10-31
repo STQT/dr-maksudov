@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Публикации - Ахмедова Феруза Медетовна{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4 fw-bold">Научные публикации</h1>
+                <p class="lead text-muted">Научные работы и исследования</p>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
+                        <li class="breadcrumb-item active">Публикации</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Search and Filter Section -->
+<section class="filter-section py-4 bg-white shadow-sm">
+    <div class="container">
+        <form method="get" class="row g-3">
+            <div class="col-md-4">
+                <input type="text" name="search" class="form-control" placeholder="Поиск по названию, авторам, ключевым словам..." value="{{ search_query }}">
+            </div>
+            <div class="col-md-3">
+                <select name="type" class="form-select">
+                    <option value="">Все типы публикаций</option>
+                    <option value="article" {% if current_type == 'article' %}selected{% endif %}>Статья</option>
+                    <option value="book" {% if current_type == 'book' %}selected{% endif %}>Книга</option>
+                    <option value="chapter" {% if current_type == 'chapter' %}selected{% endif %}>Глава в книге</option>
+                    <option value="conference" {% if current_type == 'conference' %}selected{% endif %}>Конференция</option>
+                    <option value="thesis" {% if current_type == 'thesis' %}selected{% endif %}>Диссертация</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select name="year" class="form-select">
+                    <option value="">Все годы</option>
+                    {% for year in years %}
+                    <option value="{{ year }}" {% if current_year == year|stringformat:"s" %}selected{% endif %}>{{ year }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="fas fa-search"></i> Поиск
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Publications Section -->
+<section class="publications-section py-5">
+    <div class="container">
+        {% if page_obj %}
+        <div class="publications-list">
+            {% for publication in page_obj %}
+            <div class="card mb-4 shadow-sm publication-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="mb-2">
+                                <span class="badge bg-info">{{ publication.get_publication_type_display }}</span>
+                                {% if publication.is_featured %}
+                                <span class="badge bg-warning"><i class="fas fa-star"></i> Избранное</span>
+                                {% endif %}
+                            </div>
+                            <h4 class="card-title mb-3">{{ publication.title }}</h4>
+                            <p class="text-muted mb-2">
+                                <i class="fas fa-users"></i> <strong>Авторы:</strong> {{ publication.authors }}
+                            </p>
+                            <p class="text-muted mb-2">
+                                <i class="fas fa-calendar"></i> <strong>Год:</strong> {{ publication.year }}
+                                {% if publication.journal %}
+                                | <i class="fas fa-book"></i> <strong>Журнал:</strong> {{ publication.journal }}
+                                {% endif %}
+                                {% if publication.publisher %}
+                                | <i class="fas fa-building"></i> <strong>Издатель:</strong> {{ publication.publisher }}
+                                {% endif %}
+                            </p>
+                            {% if publication.volume or publication.pages %}
+                            <p class="text-muted mb-2">
+                                {% if publication.volume %}<strong>Том:</strong> {{ publication.volume }}{% endif %}
+                                {% if publication.pages %} | <strong>Страницы:</strong> {{ publication.pages }}{% endif %}
+                            </p>
+                            {% endif %}
+                            
+                            {% if publication.abstract %}
+                            <p class="card-text mt-3">{{ publication.abstract|truncatewords:40 }}</p>
+                            {% endif %}
+                            
+                            {% if publication.keywords %}
+                            <p class="mb-2">
+                                <i class="fas fa-tags"></i> <strong>Ключевые слова:</strong> 
+                                <small class="text-muted">{{ publication.keywords }}</small>
+                            </p>
+                            {% endif %}
+                            
+                            {% if publication.citation_count > 0 %}
+                            <p class="text-primary">
+                                <i class="fas fa-quote-right"></i> <strong>Цитирований:</strong> {{ publication.citation_count }}
+                            </p>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <div class="publication-actions d-flex flex-column gap-2">
+                                <a href="{% url 'publication_detail' publication.pk %}" class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-eye"></i> Детали
+                                </a>
+                                {% if publication.link %}
+                                <a href="{{ publication.link }}" class="btn btn-outline-secondary btn-sm" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> Ссылка
+                                </a>
+                                {% endif %}
+                                {% if publication.pdf_file %}
+                                <a href="{{ publication.pdf_file.url }}" class="btn btn-outline-danger btn-sm" target="_blank">
+                                    <i class="fas fa-file-pdf"></i> PDF
+                                </a>
+                                {% endif %}
+                                {% if publication.doi %}
+                                <a href="https://doi.org/{{ publication.doi }}" class="btn btn-outline-info btn-sm" target="_blank">
+                                    <i class="fas fa-link"></i> DOI
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if page_obj.has_other_pages %}
+        <nav aria-label="Pagination">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}&type={{ current_type }}&year={{ current_year }}&search={{ search_query }}">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                </li>
+                {% endif %}
+                
+                {% for num in page_obj.paginator.page_range %}
+                <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                    <a class="page-link" href="?page={{ num }}&type={{ current_type }}&year={{ current_year }}&search={{ search_query }}">{{ num }}</a>
+                </li>
+                {% endfor %}
+                
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}&type={{ current_type }}&year={{ current_year }}&search={{ search_query }}">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+        {% else %}
+        <div class="alert alert-info text-center">
+            <i class="fas fa-info-circle fa-3x mb-3"></i>
+            <h4>Публикации не найдены</h4>
+            <p>Попробуйте изменить параметры поиска</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+

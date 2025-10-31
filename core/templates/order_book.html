@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Заказать книгу - Максудов Абдурахман{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4 fw-bold">Заказать книгу</h1>
+                <p class="lead text-muted">Заполните форму, и мы свяжемся с вами для уточнения деталей доставки</p>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'books' %}">Книги</a></li>
+                        <li class="breadcrumb-item active">Заказать</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Order Call Section -->
+<section class="order-form-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow-sm">
+                    <div class="card-body p-5">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-phone-alt fa-4x text-primary mb-3"></i>
+                            <h3 class="fw-bold">Позвоните для заказа</h3>
+                            <p class="text-muted">Свяжитесь со мной для оформления заказа</p>
+                        </div>
+                        
+                        <div class="text-center mb-4">
+                            <a href="tel:+998889992228" class="btn btn-primary btn-lg px-5 py-4" style="font-size: 1.5rem;">
+                                <i class="fas fa-phone"></i> +998 88 999 22 28
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Info Box -->
+                <div class="alert alert-success mt-4">
+                    <h5 class="alert-heading"><i class="fas fa-clock"></i> Время работы</h5>
+                    <ul class="mb-0">
+                        <li>Понедельник - Пятница: 9:00 - 18:00</li>
+                        <li>Суббота: 9:00 - 14:00</li>
+                        <li>Воскресенье: Выходной</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Почему стоит заказать у нас?</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-3 text-center">
+                <div class="feature-box p-4">
+                    <i class="fas fa-book fa-3x text-primary mb-3"></i>
+                    <h5 class="fw-bold">Качество</h5>
+                    <p class="text-muted">Оригинальные издания</p>
+                </div>
+            </div>
+            <div class="col-md-3 text-center">
+                <div class="feature-box p-4">
+                    <i class="fas fa-shipping-fast fa-3x text-primary mb-3"></i>
+                    <h5 class="fw-bold">Быстрая доставка</h5>
+                    <p class="text-muted">По всей стране</p>
+                </div>
+            </div>
+            <div class="col-md-3 text-center">
+                <div class="feature-box p-4">
+                    <i class="fas fa-hand-holding-usd fa-3x text-primary mb-3"></i>
+                    <h5 class="fw-bold">Гибкая оплата</h5>
+                    <p class="text-muted">Удобные способы оплаты</p>
+                </div>
+            </div>
+            <div class="col-md-3 text-center">
+                <div class="feature-box p-4">
+                    <i class="fas fa-headset fa-3x text-primary mb-3"></i>
+                    <h5 class="fw-bold">Поддержка</h5>
+                    <p class="text-muted">Консультации по телефону</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Alternative Contact -->
+<section class="alternative-contact-section py-5">
+    <div class="container">
+        <div class="card bg-primary text-white shadow-lg">
+            <div class="card-body text-center py-5">
+                <h2 class="fw-bold mb-3">Есть вопросы по заказу?</h2>
+                <p class="lead mb-4">Свяжитесь с нами напрямую</p>
+                <a href="{% url 'contact' %}" class="btn btn-light btn-lg">
+                    <i class="fas fa-envelope"></i> Написать нам
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

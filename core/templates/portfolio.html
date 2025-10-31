@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Портфолио - Ахмедова Феруза Медетовна{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4 fw-bold">Портфолио</h1>
+                <p class="lead text-muted">Проекты и исследования</p>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
+                        <li class="breadcrumb-item active">Портфолио</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Filter Section -->
+<section class="filter-section py-3 bg-white shadow-sm">
+    <div class="container">
+        <div class="text-center">
+            <a href="{% url 'portfolio' %}" class="btn btn-outline-primary {% if not request.GET.status %}active{% endif %}">
+                Все проекты
+            </a>
+            <a href="?status=ongoing" class="btn btn-outline-success {% if request.GET.status == 'ongoing' %}active{% endif %}">
+                В процессе
+            </a>
+            <a href="?status=completed" class="btn btn-outline-secondary {% if request.GET.status == 'completed' %}active{% endif %}">
+                Завершенные
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section class="projects-section py-5">
+    <div class="container">
+        {% if projects %}
+        <div class="row g-4">
+            {% for project in projects %}
+            <div class="col-lg-6">
+                <div class="card h-100 shadow-sm hover-card">
+                    {% if project.image %}
+                    <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}" style="height: 250px; object-fit: cover;">
+                    {% else %}
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 250px;">
+                        <i class="fas fa-project-diagram fa-5x text-muted"></i>
+                    </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <div class="mb-2">
+                            {% if project.is_ongoing %}
+                            <span class="badge bg-success">В процессе</span>
+                            {% else %}
+                            <span class="badge bg-secondary">Завершен</span>
+                            {% endif %}
+                        </div>
+                        <h4 class="card-title fw-bold">{{ project.title }}</h4>
+                        <p class="text-muted mb-2">
+                            <i class="fas fa-building"></i> {{ project.organization }}
+                        </p>
+                        <p class="text-muted mb-2">
+                            <i class="fas fa-user"></i> <strong>Роль:</strong> {{ project.role }}
+                        </p>
+                        <p class="text-muted mb-3">
+                            <i class="fas fa-calendar"></i> 
+                            {{ project.start_date|date:"d.m.Y" }}
+                            {% if project.end_date %}
+                                - {{ project.end_date|date:"d.m.Y" }}
+                            {% else %}
+                                - настоящее время
+                            {% endif %}
+                        </p>
+                        <p class="card-text">{{ project.description|truncatewords:30 }}</p>
+                        
+                        {% if project.funding %}
+                        <p class="text-primary mb-2">
+                            <i class="fas fa-money-bill"></i> <strong>Финансирование:</strong> {{ project.funding }}
+                        </p>
+                        {% endif %}
+                        
+                        {% if project.results %}
+                        <hr>
+                        <h6 class="fw-bold">Результаты:</h6>
+                        <p class="card-text">{{ project.results|truncatewords:20 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="alert alert-info text-center">
+            <i class="fas fa-info-circle fa-3x mb-3"></i>
+            <h4>Проекты не найдены</h4>
+            <p>Попробуйте изменить фильтр</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-3">Есть интересный проект?</h2>
+        <p class="lead mb-4">Давайте обсудим возможность сотрудничества</p>
+        <a href="{% url 'contact' %}" class="btn btn-light btn-lg">
+            <i class="fas fa-envelope"></i> Связаться
+        </a>
+    </div>
+</section>
+{% endblock %}
+
