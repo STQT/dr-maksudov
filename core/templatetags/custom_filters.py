@@ -44,3 +44,13 @@ def first_words(value, num_words=20):
         return ' '.join(words[:num_words]) + '...'
     return value
 
+
+@register.filter
+def remove_prefix(value, prefix):
+    """Удаляет префикс из строки если он есть"""
+    if not value:
+        return ''
+    if value.startswith(prefix):
+        return value[len(prefix):]
+    return value
+

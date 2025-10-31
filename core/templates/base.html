@@ -1,6 +1,9 @@
 {% load static %}
+{% load i18n %}
+{% load custom_filters %}
+{% get_current_language as CURRENT_LANGUAGE %}
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="{{ CURRENT_LANGUAGE|default:'ru' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -72,26 +75,46 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}" href="{% url 'index' %}">Главная</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}" href="{% url 'index' %}">{% trans "Главная" %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}" href="{% url 'about' %}">О враче</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}" href="{% url 'about' %}">{% trans "О враче" %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'services' %}active{% endif %}" href="{% url 'services' %}">Услуги</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'services' %}active{% endif %}" href="{% url 'services' %}">{% trans "Услуги" %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'portfolio' %}active{% endif %}" href="{% url 'portfolio' %}">Клинические случаи</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'portfolio' %}active{% endif %}" href="{% url 'portfolio' %}">{% trans "Клинические случаи" %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'blog' %}active{% endif %}" href="{% url 'blog' %}">Блог</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'blog' %}active{% endif %}" href="{% url 'blog' %}">{% trans "Блог" %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}" href="{% url 'contact' %}">Контакты</a>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}" href="{% url 'contact' %}">{% trans "Контакты" %}</a>
+                    </li>
+                    <li class="nav-item dropdown ms-2">
+                        {% get_available_languages as LANGUAGES %}
+                        <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-globe"></i> {{ CURRENT_LANGUAGE|upper }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                            {% for language_code, language_name in LANGUAGES %}
+                            <li>
+                                <form action="{% url 'set_language' %}" method="post" style="display: inline;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="language" value="{{ language_code }}">
+                                    <input type="hidden" name="next" value="{% if language_code == 'ru' %}{{ request.path|remove_prefix:'/uz' }}{% else %}/uz{{ request.path }}{% endif %}">
+                                    <button type="submit" class="dropdown-item {% if language_code == CURRENT_LANGUAGE %}active{% endif %}">
+                                        {{ language_name }}
+                                    </button>
+                                </form>
+                            </li>
+                            {% endfor %}
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="btn btn-primary btn-sm ms-2" href="tel:+998889992228">
-                            <i class="fas fa-phone"></i> Позвонить
+                            <i class="fas fa-phone"></i> {% trans "Позвонить" %}
                         </a>
                     </li>
                 </ul>
@@ -277,11 +300,11 @@
 
     <!-- Telegram Contact Button -->
     {% if profile and profile.telegram %}
-    <a href="{{ profile.telegram }}" target="_blank" class="telegram-float" title="Есть вопросы? Тогда пиши нам!">
+    <a href="{{ profile.telegram }}" target="_blank" class="telegram-float" title="{% trans 'Есть вопросы? Тогда пиши нам!' %}">
         <div class="telegram-float-icon">
             <i class="fab fa-telegram"></i>
         </div>
-        <div class="telegram-float-text">Есть вопросы?<br>Тогда пиши нам!</div>
+        <div class="telegram-float-text">{% trans "Есть вопросы?" %}<br>{% trans "Тогда пиши нам!" %}</div>
     </a>
     {% endif %}
 

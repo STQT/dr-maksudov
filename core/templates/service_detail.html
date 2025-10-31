@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% load custom_filters %}
 
 {% block title %}{{ service.title }} - Услуги{% endblock %}
@@ -109,28 +110,28 @@
                 <div class="sidebar-sticky" style="position: sticky; top: 100px;">
                     <div class="card shadow-lg border-0">
                         <div class="card-body p-4">
-                            <h4 class="fw-bold mb-3 text-center">Записаться на консультацию</h4>
+                            <h4 class="fw-bold mb-3 text-center">{% trans "Записаться на консультацию" %}</h4>
                             
                             <div class="text-center mb-4">
                                 <i class="fas fa-phone-alt fa-3x text-primary mb-3"></i>
-                                <p class="lead">Свяжитесь со мной для записи на прием</p>
+                                <p class="lead">{% trans "Свяжитесь со мной для записи на прием" %}</p>
                             </div>
                             
                             <a href="tel:+998889992228" class="btn btn-primary btn-lg w-100 py-3 mb-3" style="font-size: 1.1rem;">
-                                <i class="fas fa-phone"></i> Позвонить сейчас
+                                <i class="fas fa-phone"></i> {% trans "Позвонить сейчас" %}
                             </a>
                             
                             <div class="text-center">
                                 <p class="text-primary fw-bold mb-0" style="font-size: 1.3rem;">+998 88 999 22 28</p>
-                                <small class="text-muted d-block mt-2">Работаю ежедневно с 9:00 до 18:00</small>
+                                <small class="text-muted d-block mt-2">{% trans "Работаю ежедневно с 9:00 до 18:00" %}</small>
                             </div>
                             
                             <hr class="my-4">
                             
                             <div class="alert alert-info mb-0">
                                 <i class="fas fa-info-circle"></i>
-                                <strong>Быстрая запись</strong>
-                                <p class="mb-0 small">Просто позвоните и я запишу вас на удобное время</p>
+                                <strong>{% trans "Быстрая запись" %}</strong>
+                                <p class="mb-0 small">{% trans "Просто позвоните и я запишу вас на удобное время" %}</p>
                             </div>
                         </div>
                     </div>
