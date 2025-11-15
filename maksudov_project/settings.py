@@ -43,9 +43,13 @@ INSTALLED_APPS = [
     'core',
 ]
 
+# Проверяем, используется ли R2 для статики (нужно для настройки WhiteNoise)
+USE_R2_STORAGE = config('USE_R2_STORAGE', default=False, cast=bool)
+USE_R2_FOR_STATIC = config('USE_R2_FOR_STATIC', default=True, cast=bool) if USE_R2_STORAGE else False
+
+# Базовый список middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -54,6 +58,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Добавляем WhiteNoise только если не используется R2 для статики
+if not (USE_R2_STORAGE and USE_R2_FOR_STATIC):
+    MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
 ROOT_URLCONF = 'maksudov_project.urls'
 
@@ -134,12 +142,10 @@ LOCALE_PATHS = [BASE_DIR / 'locale']
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-STATIC_ROOT = config('STATIC_ROOT', default=BASE_DIR / 'staticfiles')
-
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Media files
-USE_R2_STORAGE = config('USE_R2_STORAGE', default=False, cast=bool)
+# USE_R2_STORAGE и USE_R2_FOR_STATIC уже определены выше для настройки WhiteNoise
 
 if USE_R2_STORAGE:
     # Cloudflare R2 Storage Configuration
@@ -168,18 +174,31 @@ if USE_R2_STORAGE:
     else:
         MEDIA_URL = f'{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/media/'
     
-    USE_R2_FOR_STATIC = config('USE_R2_FOR_STATIC', default=True, cast=bool)
+    # USE_R2_FOR_STATIC уже определен выше
     if USE_R2_FOR_STATIC:
         STATICFILES_STORAGE = 'core.storage_backends.StaticStorage'
         if AWS_S3_CUSTOM_DOMAIN:
             STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
         else:
             STATIC_URL = f'{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/static/'
+        # Не используем STATIC_ROOT при использовании R2 для статики, но создаем директорию для избежания предупреждений
+        static_root_path = config('STATIC_ROOT', default=BASE_DIR / 'staticfiles')
+        if static_root_path and not static_root_path.exists():
+            static_root_path.mkdir(parents=True, exist_ok=True)
+        STATIC_ROOT = None
     else:
         STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+        STATIC_ROOT = config('STATIC_ROOT', default=BASE_DIR / 'staticfiles')
+        # Создаем директорию, если она не существует
+        if STATIC_ROOT and not STATIC_ROOT.exists():
+            STATIC_ROOT.mkdir(parents=True, exist_ok=True)
 else:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = config('MEDIA_ROOT', default=BASE_DIR / 'media')
+    STATIC_ROOT = config('STATIC_ROOT', default=BASE_DIR / 'staticfiles')
+    # Создаем директорию, если она не существует
+    if STATIC_ROOT and not STATIC_ROOT.exists():
+        STATIC_ROOT.mkdir(parents=True, exist_ok=True)
 
 
 # CKEditor Configuration
@@ -220,11 +239,11 @@ CKEDITOR_CONFIGS = {
     },
 }
 
-# Whitenoise configuration
+# Whitenoise configuration - добавляем только если не используется R2 для статики
 import sys
+# Проверяем, используется ли R2 для статики (определяется ниже в коде)
+# Если используется R2 для статики, WhiteNoise не нужен
 if 'test' in sys.argv:
-    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-elif not USE_R2_STORAGE:
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 # Default primary key field type
