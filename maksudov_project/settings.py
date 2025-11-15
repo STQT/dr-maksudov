@@ -150,7 +150,12 @@ if USE_R2_STORAGE:
     AWS_S3_REGION_NAME = 'auto'
     AWS_S3_SIGNATURE_VERSION = 's3v4'
     AWS_S3_ADDRESSING_STYLE = 'path'
-    AWS_S3_CUSTOM_DOMAIN = config('R2_CUSTOM_DOMAIN', default=None)
+    # Убираем протокол из custom domain, если он есть (для django-storages)
+    custom_domain = config('R2_CUSTOM_DOMAIN', default=None)
+    if custom_domain:
+        AWS_S3_CUSTOM_DOMAIN = custom_domain.replace('https://', '').replace('http://', '').strip('/')
+    else:
+        AWS_S3_CUSTOM_DOMAIN = None
     AWS_DEFAULT_ACL = None
     AWS_QUERYSTRING_AUTH = False
     AWS_S3_FILE_OVERWRITE = False
