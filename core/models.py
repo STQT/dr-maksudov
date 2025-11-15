@@ -28,6 +28,8 @@ class Profile(models.Model):
     facebook = models.URLField('Facebook', blank=True)
     instagram = models.URLField('Instagram', blank=True)
     telegram = models.URLField('Telegram', blank=True)
+    researchgate = models.URLField('ResearchGate', blank=True)
+    orcid = models.CharField('ORCID', max_length=19, blank=True, help_text='ORCID ID (например: 0000-0000-0000-0000)')
     created_at = models.DateTimeField('Создано', auto_now_add=True)
     updated_at = models.DateTimeField('Обновлено', auto_now=True)
     
