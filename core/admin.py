@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
+from modeltranslation.admin import TranslationAdmin
 from .models import (
     Profile, Service, ServiceImage, ServiceReview, Publication, Project, BlogPost,
     ServiceOrder, Achievement, Testimonial, ContactMessage,
@@ -8,7 +9,7 @@ from .models import (
 
 
 @admin.register(Profile)
-class ProfileAdmin(admin.ModelAdmin):
+class ProfileAdmin(TranslationAdmin):
     list_display = ['full_name', 'email', 'phone', 'experience_years', 'updated_at']
     search_fields = ['full_name', 'email', 'specialization']
     list_filter = ['academic_degree', 'created_at']
@@ -33,7 +34,7 @@ class ProfileAdmin(admin.ModelAdmin):
 
 
 @admin.register(Service)
-class ServiceAdmin(admin.ModelAdmin):
+class ServiceAdmin(TranslationAdmin):
     list_display = ['title', 'duration', 'is_active', 'order', 'created_at']
     list_filter = ['is_active', 'created_at']
     search_fields = ['title', 'description']
@@ -42,7 +43,7 @@ class ServiceAdmin(admin.ModelAdmin):
 
 
 @admin.register(Publication)
-class PublicationAdmin(admin.ModelAdmin):
+class PublicationAdmin(TranslationAdmin):
     list_display = ['title', 'publication_type', 'year', 'citation_count', 'is_featured', 'created_at']
     list_filter = ['publication_type', 'year', 'is_featured']
     search_fields = ['title', 'authors', 'keywords', 'abstract']
@@ -66,7 +67,7 @@ class PublicationAdmin(admin.ModelAdmin):
 
 
 @admin.register(Project)
-class ProjectAdmin(admin.ModelAdmin):
+class ProjectAdmin(TranslationAdmin):
     list_display = ['title', 'organization', 'start_date', 'end_date', 'is_ongoing_display', 'is_active', 'order']
     list_filter = ['is_active', 'start_date', 'organization']
     search_fields = ['title', 'description', 'organization', 'role']
@@ -82,7 +83,7 @@ class ProjectAdmin(admin.ModelAdmin):
 
 
 @admin.register(BlogPost)
-class BlogPostAdmin(admin.ModelAdmin):
+class BlogPostAdmin(TranslationAdmin):
     list_display = ['title', 'category', 'is_published', 'views_count', 'published_at']
     list_filter = ['is_published', 'category', 'created_at']
     search_fields = ['title', 'excerpt', 'tags']
@@ -144,7 +145,7 @@ class ServiceOrderAdmin(admin.ModelAdmin):
 
 
 @admin.register(Achievement)
-class AchievementAdmin(admin.ModelAdmin):
+class AchievementAdmin(TranslationAdmin):
     list_display = ['title', 'organization', 'date', 'order', 'created_at']
     list_filter = ['date', 'organization']
     search_fields = ['title', 'description', 'organization']
@@ -154,7 +155,7 @@ class AchievementAdmin(admin.ModelAdmin):
 
 
 @admin.register(Testimonial)
-class TestimonialAdmin(admin.ModelAdmin):
+class TestimonialAdmin(TranslationAdmin):
     list_display = ['patient_name', 'patient_age', 'rating', 'is_approved', 'created_at']
     list_filter = ['is_approved', 'rating', 'created_at']
     search_fields = ['patient_name', 'text']
@@ -194,7 +195,7 @@ class ContactMessageAdmin(admin.ModelAdmin):
 
 
 @admin.register(Book)
-class BookAdmin(admin.ModelAdmin):
+class BookAdmin(TranslationAdmin):
     list_display = ['title', 'author', 'publication_year', 'price', 'is_available', 'is_featured', 'views_count']
     list_filter = ['is_available', 'is_featured', 'publication_year', 'language']
     search_fields = ['title', 'author', 'description', 'isbn']
@@ -270,7 +271,7 @@ class BookOrderAdmin(admin.ModelAdmin):
 
 
 @admin.register(ServiceImage)
-class ServiceImageAdmin(admin.ModelAdmin):
+class ServiceImageAdmin(TranslationAdmin):
     list_display = ['service', 'order', 'alt_text', 'created_at']
     list_filter = ['created_at']
     search_fields = ['service__title', 'alt_text']
@@ -285,7 +286,7 @@ class ServiceImageAdmin(admin.ModelAdmin):
 
 
 @admin.register(ServiceReview)
-class ServiceReviewAdmin(admin.ModelAdmin):
+class ServiceReviewAdmin(TranslationAdmin):
     list_display = ['service', 'patient_name', 'patient_age', 'rating', 'is_approved', 'created_at']
     list_filter = ['is_approved', 'rating', 'created_at']
     search_fields = ['service__title', 'patient_name', 'text']
