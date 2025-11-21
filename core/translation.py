@@ -30,7 +30,7 @@ class ProjectTranslationOptions(TranslationOptions):
 
 
 class BlogPostTranslationOptions(TranslationOptions):
-    fields = ('title', 'excerpt', 'content', 'category')
+    fields = ('title', 'excerpt', 'content', 'category', 'tags')
     required_languages = ('ru',)
 
 
