@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% load custom_filters %}
 
 {% block title %}Услуги - Максудов Абдурахман{% endblock %}
@@ -10,12 +11,12 @@
     <div class="container">
         <div class="row">
             <div class="col-12 text-center">
-                <h1 class="display-4 fw-bold">Услуги уролога</h1>
-                <p class="lead text-muted">Профессиональное лечение урологических заболеваний</p>
+                <h1 class="display-4 fw-bold">{% trans "Услуги уролога" %}</h1>
+                <p class="lead text-muted">{% trans "Профессиональное лечение урологических заболеваний" %}</p>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center">
-                        <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
-                        <li class="breadcrumb-item active">Услуги</li>
+                        <li class="breadcrumb-item"><a href="{% url 'index' %}">{% trans "Главная" %}</a></li>
+                        <li class="breadcrumb-item active">{% trans "Услуги" %}</li>
                     </ol>
                 </nav>
             </div>
@@ -41,16 +42,16 @@
                         {% if service.duration %}
                         <p class="mb-2">
                             <i class="fas fa-clock text-primary"></i>
-                            <strong>Длительность:</strong> {{ service.duration }}
+                            <strong>{% trans "Длительность" %}:</strong> {{ service.duration }}
                         </p>
                         {% endif %}
                         
                         <div class="d-flex gap-2 mt-4">
                             <a href="{{ service.get_absolute_url }}" class="btn btn-outline-primary btn-lg flex-fill">
-                                <i class="fas fa-info-circle"></i> Подробнее
+                                <i class="fas fa-info-circle"></i> {% trans "Подробнее" %}
                             </a>
                             <a href="tel:+998889992228" class="btn btn-primary btn-lg flex-fill">
-                                <i class="fas fa-phone"></i> Позвонить
+                                <i class="fas fa-phone"></i> {% trans "Позвонить" %}
                             </a>
                         </div>
                     </div>
@@ -61,7 +62,7 @@
         {% else %}
         <div class="alert alert-info text-center">
             <i class="fas fa-info-circle fa-3x mb-3"></i>
-            <h4>Информация об услугах скоро появится</h4>
+            <h4>{% trans "Информация об услугах скоро появится" %}</h4>
         </div>
         {% endif %}
     </div>
@@ -71,35 +72,35 @@
 <section class="why-choose-section py-5 bg-light">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="fw-bold">Почему выбирают меня</h2>
+            <h2 class="fw-bold">{% trans "Почему выбирают меня" %}</h2>
         </div>
         <div class="row g-4">
             <div class="col-md-3 text-center">
                 <div class="feature-box p-4">
                     <i class="fas fa-graduation-cap fa-3x text-primary mb-3"></i>
-                    <h5 class="fw-bold">Экспертиза</h5>
-                    <p class="text-muted">Научная степень и многолетний опыт</p>
+                    <h5 class="fw-bold">{% trans "Экспертиза" %}</h5>
+                    <p class="text-muted">{% trans "Научная степень и многолетний опыт" %}</p>
                 </div>
             </div>
             <div class="col-md-3 text-center">
                 <div class="feature-box p-4">
                     <i class="fas fa-chart-line fa-3x text-primary mb-3"></i>
-                    <h5 class="fw-bold">Результативность</h5>
-                    <p class="text-muted">Доказанные результаты исследований</p>
+                    <h5 class="fw-bold">{% trans "Результативность" %}</h5>
+                    <p class="text-muted">{% trans "Доказанные результаты исследований" %}</p>
                 </div>
             </div>
             <div class="col-md-3 text-center">
                 <div class="feature-box p-4">
                     <i class="fas fa-users fa-3x text-primary mb-3"></i>
-                    <h5 class="fw-bold">Индивидуальный подход</h5>
-                    <p class="text-muted">Решения под ваши задачи</p>
+                    <h5 class="fw-bold">{% trans "Индивидуальный подход" %}</h5>
+                    <p class="text-muted">{% trans "Решения под ваши задачи" %}</p>
                 </div>
             </div>
             <div class="col-md-3 text-center">
                 <div class="feature-box p-4">
                     <i class="fas fa-clock fa-3x text-primary mb-3"></i>
-                    <h5 class="fw-bold">Соблюдение сроков</h5>
-                    <p class="text-muted">Работа выполняется вовремя</p>
+                    <h5 class="fw-bold">{% trans "Соблюдение сроков" %}</h5>
+                    <p class="text-muted">{% trans "Работа выполняется вовремя" %}</p>
                 </div>
             </div>
         </div>
@@ -111,8 +112,8 @@
     <div class="container">
         <div class="card bg-primary text-white shadow-lg">
             <div class="card-body text-center py-5">
-                <h2 class="fw-bold mb-3">Готовы начать лечение?</h2>
-                <p class="lead mb-4">Свяжитесь со мной для получения консультации и записи на прием</p>
+                <h2 class="fw-bold mb-3">{% trans "Готовы начать лечение?" %}</h2>
+                <p class="lead mb-4">{% trans "Свяжитесь со мной для получения консультации и записи на прием" %}</p>
                 <div class="d-flex gap-3 justify-content-center">
                     <a href="tel:+998889992228" class="btn btn-light btn-lg px-5" style="font-size: 1.2rem;">
                         <i class="fas fa-phone"></i> +998 88 999 22 28

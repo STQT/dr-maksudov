@@ -1,6 +1,6 @@
 """
 Modeltranslation configuration for urologist website
-Languages: Russian, Uzbek (Latin)
+Languages: Russian, Uzbek (Latin), Uzbek (Cyrillic)
 """
 from modeltranslation.translator import translator, TranslationOptions
 from .models import (

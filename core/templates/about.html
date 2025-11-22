@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}О социологе - Ахмедова Феруза Медетовна{% endblock %}
 
@@ -9,11 +10,11 @@
     <div class="container">
         <div class="row">
             <div class="col-12 text-center">
-                <h1 class="display-4 fw-bold">О социологе</h1>
+                <h1 class="display-4 fw-bold">{% trans "О враче" %}</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center">
-                        <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
-                        <li class="breadcrumb-item active">О социологе</li>
+                        <li class="breadcrumb-item"><a href="{% url 'index' %}">{% trans "Главная" %}</a></li>
+                        <li class="breadcrumb-item active">{% trans "О враче" %}</li>
                     </ol>
                 </nav>
             </div>
@@ -42,7 +43,7 @@
                     {% if profile.academic_title %}
                     <span class="badge bg-secondary me-2">{{ profile.academic_title }}</span>
                     {% endif %}
-                    <span class="badge bg-success"><i class="fas fa-briefcase"></i> {{ profile.experience_years }}+ лет опыта</span>
+                    <span class="badge bg-success"><i class="fas fa-briefcase"></i> {% blocktrans with years=profile.experience_years %}{{ years }}+ лет опыта{% endblocktrans %}</span>
                 </div>
                 <div class="contact-info mb-3">
                     <p><i class="fas fa-envelope text-primary me-2"></i> {{ profile.email }}</p>
@@ -77,7 +78,7 @@
         <!-- Biography -->
         <div class="row mb-5">
             <div class="col-12">
-                <h3 class="fw-bold mb-4">Биография</h3>
+                <h3 class="fw-bold mb-4">{% trans "Биография" %}</h3>
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <p class="lead">{{ profile.bio|linebreaks }}</p>
@@ -89,7 +90,7 @@
         <!-- Education & Specialization -->
         <div class="row mb-5">
             <div class="col-md-6 mb-4">
-                <h3 class="fw-bold mb-4">Образование</h3>
+                <h3 class="fw-bold mb-4">{% trans "Образование" %}</h3>
                 <div class="card shadow-sm h-100">
                     <div class="card-body">
                         <p>{{ profile.education|linebreaks }}</p>
@@ -97,7 +98,7 @@
                 </div>
             </div>
             <div class="col-md-6 mb-4">
-                <h3 class="fw-bold mb-4">Специализация</h3>
+                <h3 class="fw-bold mb-4">{% trans "Специализация" %}</h3>
                 <div class="card shadow-sm h-100">
                     <div class="card-body">
                         <p>{{ profile.specialization|linebreaks }}</p>
@@ -112,7 +113,7 @@
 {% if achievements %}
 <section class="achievements-section py-5 bg-light">
     <div class="container">
-        <h3 class="fw-bold mb-5 text-center">Достижения и награды</h3>
+                    <h3 class="fw-bold mb-5 text-center">{% trans "Достижения и награды" %}</h3>
         <div class="timeline">
             {% for achievement in achievements %}
             <div class="timeline-item mb-4">
@@ -145,10 +146,10 @@
 <!-- CTA Section -->
 <section class="cta-section py-5 bg-primary text-white">
     <div class="container text-center">
-        <h2 class="fw-bold mb-3">Заинтересованы в сотрудничестве?</h2>
-        <p class="lead mb-4">Свяжитесь со мной для обсуждения вашего проекта</p>
+        <h2 class="fw-bold mb-3">{% trans "Заинтересованы в сотрудничестве?" %}</h2>
+        <p class="lead mb-4">{% trans "Свяжитесь со мной для обсуждения вашего проекта" %}</p>
         <a href="{% url 'contact' %}" class="btn btn-light btn-lg">
-            <i class="fas fa-envelope"></i> Связаться
+            <i class="fas fa-envelope"></i> {% trans "Связаться" %}
         </a>
     </div>
 </section>

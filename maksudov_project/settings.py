@@ -131,10 +131,11 @@ USE_L10N = True
 
 LANGUAGES = (
     ('ru', 'Русский'),
-    ('uz', "O'zbekcha (Lotin)"),
+    ('uz', "O'zbekcha"),
+    ('uz-cyrl', "Ўзбекча"),
 )
 
-MODELTRANSLATION_LANGUAGES = ('ru', 'uz')
+MODELTRANSLATION_LANGUAGES = ('ru', 'uz', 'uz-cyrl')
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
 MODELTRANSLATION_AUTO_POPULATE = False
 

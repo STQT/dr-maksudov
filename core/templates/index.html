@@ -13,10 +13,10 @@
             <div class="col-lg-6 mb-4 mb-lg-0">
                 {% if profile %}
                 <h1 class="display-4 fw-bold mb-3">{{ profile.full_name }}</h1>
-                <p class="lead text-muted mb-4">Врач-уролог высшей категории с {{ profile.experience_years }}+ летним опытом</p>
+                <p class="lead text-muted mb-4">{% blocktrans with years=profile.experience_years %}Врач-уролог высшей категории с {{ years }}+ летним опытом{% endblocktrans %}</p>
                 <div class="mb-4">
                     <span class="badge bg-primary me-2"><i class="fas fa-user-md"></i> {{ profile.academic_degree }}</span>
-                    <span class="badge bg-secondary"><i class="fas fa-briefcase"></i> {{ profile.experience_years }}+ лет опыта</span>
+                    <span class="badge bg-secondary"><i class="fas fa-briefcase"></i> {% blocktrans with years=profile.experience_years %}{{ years }}+ лет опыта{% endblocktrans %}</span>
                 </div>
                 <div class="d-flex gap-3">
                     <a href="{% url 'order_service' %}" class="btn btn-primary btn-lg">
@@ -43,8 +43,8 @@
 <section class="services-section py-5">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="fw-bold">Медицинские услуги</h2>
-            <p class="text-muted">Комплексное лечение урологических заболеваний</p>
+            <h2 class="fw-bold">{% trans "Медицинские услуги" %}</h2>
+            <p class="text-muted">{% trans "Комплексное лечение урологических заболеваний" %}</p>
         </div>
         <div class="row g-4">
             {% for service in services %}
@@ -97,16 +97,16 @@
                         <p class="text-muted small mb-2">{{ publication.authors|truncatewords:5 }}</p>
                         <p class="text-muted small mb-2"><i class="fas fa-calendar"></i> {{ publication.year }}</p>
                         {% if publication.citation_count > 0 %}
-                        <p class="small"><i class="fas fa-quote-right"></i> Цитирований: {{ publication.citation_count }}</p>
+                        <p class="small"><i class="fas fa-quote-right"></i> {% blocktrans with count=publication.citation_count %}Цитирований: {{ count }}{% endblocktrans %}</p>
                         {% endif %}
-                        <a href="{% url 'publication_detail' publication.pk %}" class="btn btn-sm btn-outline-primary">Подробнее</a>
+                        <a href="{% url 'publication_detail' publication.pk %}" class="btn btn-sm btn-outline-primary">{% trans "Подробнее" %}</a>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
         <div class="text-center mt-4">
-            <a href="{% url 'publications' %}" class="btn btn-primary">Все публикации</a>
+            <a href="{% url 'publications' %}" class="btn btn-primary">{% trans "Все публикации" %}</a>
         </div>
     </div>
 </section> -->
@@ -116,8 +116,8 @@
 <section class="testimonials-section py-5">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="fw-bold">Отзывы пациентов</h2>
-            <p class="text-muted">Благодарности пациентов</p>
+            <h2 class="fw-bold">{% trans "Отзывы пациентов" %}</h2>
+            <p class="text-muted">{% trans "Благодарности пациентов" %}</p>
         </div>
         <div class="row g-4">
             {% for testimonial in testimonials %}
@@ -145,7 +145,7 @@
                             <div>
                                 <h6 class="mb-0">{{ testimonial.patient_name }}</h6>
                                 {% if testimonial.patient_age %}
-                                <small class="text-muted">Возраст: {{ testimonial.patient_age }} лет</small>
+                                <small class="text-muted">{% blocktrans with age=testimonial.patient_age %}Возраст: {{ age }} лет{% endblocktrans %}</small>
                                 {% endif %}
                             </div>
                         </div>
@@ -163,8 +163,8 @@
 <section class="books-section py-5 bg-light">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="fw-bold">Медицинские книги</h2>
-            <p class="text-muted">Авторские монографии и учебные пособия</p>
+            <h2 class="fw-bold">{% trans "Медицинские книги" %}</h2>
+            <p class="text-muted">{% trans "Авторские монографии и учебные пособия" %}</p>
         </div>
         <div class="row g-4">
             {% for book in books %}
@@ -182,7 +182,7 @@
                         <p class="text-muted small mb-2">{{ book.author }}</p>
                         <p class="text-muted small mb-3">
                             <i class="fas fa-calendar"></i> {{ book.publication_year }}
-                            {% if book.pages %} | <i class="fas fa-file-alt"></i> {{ book.pages }} стр.{% endif %}
+                            {% if book.pages %} | <i class="fas fa-file-alt"></i> {% blocktrans with pages=book.pages %}{{ pages }} стр.{% endblocktrans %}{% endif %}
                         </p>
                         {% if book.short_description %}
                         <p class="card-text text-muted flex-grow-1">{{ book.short_description|truncatewords:15 }}</p>
@@ -192,10 +192,10 @@
                         {% endif %}
                         <div class="d-grid gap-2">
                             <a href="{% url 'book_detail' book.slug %}" class="btn btn-outline-primary">
-                                <i class="fas fa-eye"></i> Подробнее
+                                <i class="fas fa-eye"></i> {% trans "Подробнее" %}
                             </a>
                             <a href="tel:+998889992228" class="btn btn-primary">
-                                <i class="fas fa-phone"></i> Позвонить
+                                <i class="fas fa-phone"></i> {% trans "Позвонить" %}
                             </a>
                         </div>
                     </div>
@@ -204,7 +204,7 @@
             {% endfor %}
         </div>
         <div class="text-center mt-4">
-            <a href="{% url 'books' %}" class="btn btn-primary">Все книги</a>
+            <a href="{% url 'books' %}" class="btn btn-primary">{% trans "Все книги" %}</a>
         </div>
     </div>
 </section>
@@ -215,8 +215,8 @@
 <section class="blog-section py-5">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="fw-bold">Медицинский блог</h2>
-            <p class="text-muted">Полезная информация о здоровье</p>
+            <h2 class="fw-bold">{% trans "Медицинский блог" %}</h2>
+            <p class="text-muted">{% trans "Полезная информация о здоровье" %}</p>
         </div>
         <div class="row g-4">
             {% for post in blog_posts %}
@@ -235,14 +235,14 @@
                             <small class="text-muted"><i class="fas fa-calendar"></i> {{ post.published_at|date:"d.m.Y" }}</small>
                             <small class="text-muted"><i class="fas fa-eye"></i> {{ post.views_count }}</small>
                         </div>
-                        <a href="{% url 'blog_detail' post.slug %}" class="btn btn-sm btn-outline-primary mt-3">Читать далее</a>
+                        <a href="{% url 'blog_detail' post.slug %}" class="btn btn-sm btn-outline-primary mt-3">{% trans "Читать далее" %}</a>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
         <div class="text-center mt-4">
-            <a href="{% url 'blog' %}" class="btn btn-primary">Все статьи</a>
+            <a href="{% url 'blog' %}" class="btn btn-primary">{% trans "Все статьи" %}</a>
         </div>
     </div>
 </section>
@@ -251,8 +251,8 @@
 <!-- CTA Section -->
 <section class="cta-section py-5 bg-primary text-white">
     <div class="container text-center">
-        <h2 class="fw-bold mb-3">Нужна консультация уролога?</h2>
-        <p class="lead mb-4">Свяжитесь со мной для получения консультации и записи на прием</p>
+        <h2 class="fw-bold mb-3">{% trans "Нужна консультация уролога?" %}</h2>
+        <p class="lead mb-4">{% trans "Свяжитесь со мной для получения консультации и записи на прием" %}</p>
         <div class="d-flex gap-3 justify-content-center">
             <a href="tel:+998889992228" class="btn btn-light btn-lg px-5" style="font-size: 1.2rem;">
                 <i class="fas fa-phone"></i> +998 88 999 22 28

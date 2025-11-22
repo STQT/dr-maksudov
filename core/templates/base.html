@@ -106,7 +106,7 @@
                                 <form action="{% url 'set_language' %}" method="post" style="display: inline;">
                                     {% csrf_token %}
                                     <input type="hidden" name="language" value="{{ language_code }}">
-                                    <input type="hidden" name="next" value="{% if language_code == 'ru' %}{{ request.path|remove_prefix:'/uz' }}{% else %}/uz{{ request.path }}{% endif %}">
+                                    <input type="hidden" name="next" value="{{ request.path }}">
                                     <button type="submit" class="dropdown-item {% if language_code == CURRENT_LANGUAGE %}active{% endif %}">
                                         {{ language_name }}
                                     </button>
